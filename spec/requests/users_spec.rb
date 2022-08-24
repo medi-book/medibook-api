@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe '/users', type: :request do
-  let(:valid_attributes) do
+    let(:valid_attributes) do
     skip('Add a hash of attributes valid for your model')
   end
 
@@ -31,6 +31,7 @@ RSpec.describe '/users', type: :request do
 
   describe 'POST /create' do
     context 'with valid parameters' do
+      before { visitfollowing_user_path(User.create(valid_attributes)) }
       it 'creates a new User' do
         expect do
           post users_url,
@@ -47,6 +48,7 @@ RSpec.describe '/users', type: :request do
     end
 
     context 'with invalid parameters' do
+      before { visitfollowing_user_path(User.create(valid_attributes)) }
       it 'does not create a new User' do
         expect do
           post users_url,
