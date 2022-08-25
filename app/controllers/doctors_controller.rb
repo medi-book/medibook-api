@@ -5,11 +5,14 @@ class DoctorsController < ApplicationController
   def index
     @doctors = Doctor.all
     render json: @doctors
+    
+    # render json: { status: 'online' }, status: 200
+
   end
 
   # GET /doctors/id
-  def show
-    render json: @doctor
+  def show    
+    render json: @doctor    
   end
 
   # POST /doctors
