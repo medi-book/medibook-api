@@ -38,7 +38,7 @@ RSpec.describe '/users Endpoint', type: :request do
       }
 
       get '/users/'
-      expect(response.body).to include('John Doe')      
+      expect(response.body).to include('John Doe')
     end
   end
 
@@ -73,7 +73,7 @@ RSpec.describe '/users Endpoint', type: :request do
         Accept: 'application/json'
       }
 
-      expect(response.body).to include('John Doe')         
+      expect(response.body).to include('John Doe')
     end
   end
 
