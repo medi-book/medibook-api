@@ -30,18 +30,6 @@ describe 'Doctors API', type: :request do
     expect(JSON.parse(response.body).size).to eq(2)
     expect(JSON.parse(response.body).size).to eq(Doctor.count)
   end
-
-  context 'POST/doctors' do
-    it 'should create a new doctor' do
-      expect do
-        post '/doctors',
-             params: { doctor: { name: 'Nandita', specialization: 'eye specialist', available_times: 'monday-friday',
-                                 hourly_rate: 250 } }
-      end.to change(Doctor, :count).by(1)
-
-      expect(response).to have_http_status(:created)
-    end
-  end
 end
 
 describe 'DELETE #destroy' do
@@ -50,5 +38,31 @@ describe 'DELETE #destroy' do
     expect do
       delete :destroy, params: { id: doctor.id }
     end
+  end
+end
+
+describe 'POST /doctors' do
+  it 'cereate a new doctor' do
+    expect do
+      post '/doctors',
+           params: { doctor: { name: 'Doc1', specialization: 'Head', available_times: 'wednesday', hourly_rate: 300 } }
+    end.to change { Doctor.count }.from(0).to(1)
+
+    expect(response).to have_http_status(:created)
+  end
+end
+
+describe 'DELETE /doctors/:id' do
+  let!(:doctor) do
+    FactoryBot.create(:doctor, name: 'Nandita', specialization: 'eye specialist', available_times: 'monday-friday',
+                               hourly_rate: 250)
+  end
+
+  it 'delete a doctor' do
+    expect do
+      delete "/doctors/#{doctor.id}"
+    end.to change { Doctor.count }.from(1).to(0)
+
+    expect(response).to have_http_status(:no_content)
   end
 end
