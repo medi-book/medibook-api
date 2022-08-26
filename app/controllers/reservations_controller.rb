@@ -8,6 +8,8 @@ class ReservationsController < ApplicationController
     render json: @reservations
   end
 
+  def show; end
+
   def create
     @reservations = Reservation.new(reservation_params)
     @reservations.user = current_user
